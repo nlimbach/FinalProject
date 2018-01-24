@@ -124,7 +124,7 @@ module.exports = function(app, passport) {
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){
         var newUserProps = [req.body.username,req.body.size, req.body.price, req.body.shirt_type, req.body.color, req.body.quantity, req.body.notes];
-        connection.query("INSERT INTO orders (username,size,price,shirt_type,color,quantity,notes) VALUES (?, ?, ?, ?, ?, ?, ?)",newUserProps, function(err, data) {
+        connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes) VALUES (?, ?, ?, ?, ?, ?, ?)",newUserProps, function(err, data) {
                 res.json(data);
             });
     });
