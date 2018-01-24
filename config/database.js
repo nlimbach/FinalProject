@@ -1,10 +1,10 @@
 module.exports = {
     'connection': {
-        'host': 'us-cdbr-iron-east-05.cleardb.net',
-        'user': 'bf6098f7b32424',
-        'password': '9dcf4705'
+        'host': 'localhost',
+        'user': 'root',
+        'password': ''
     },
-    'database': 'heroku_36fbcd957a0aafb',
+    'database': 'screen_printer',
     'users_table': 'users',
     'orders_table': 'orders'
 };
