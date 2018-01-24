@@ -29,8 +29,7 @@ CREATE TABLE IF NOT EXISTS`' + dbconfig.database + '`.`' + dbconfig.orders_table
     `color` VARCHAR(255) NOT NULL, \
     `notes` VARCHAR(500) NOT NULL, \
     `size` VARCHAR(100), \
-    `status` VARCHAR(150) DEFAULT '/Submitted/',\
-     PRIMARY KEY (id), \
+     PRIMARY KEY (`id`) \
 )');
 
 console.log('Success: Database Created!');
