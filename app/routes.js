@@ -104,7 +104,7 @@ module.exports = function(app, passport) {
     //routes to authenticate profile and placeorder pages
 
     app.get('/profile', isAuthenticated, function(req, res) {
-        connection.query("SELECT * FROM orders WHERE username = ?",[req.user.username], function(err, data) {
+        connection.query("SELECT * FROM finalprojectorders WHERE username = ?",[req.user.username], function(err, data) {
             console.log(err);
             if (err) {
                 return res.status(500).end();
