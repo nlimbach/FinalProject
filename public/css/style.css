@@ -160,6 +160,9 @@ p.center-align{
     width:auto;
 }
 
+.shopping-cart{
+    margin-right: 5px;
+
 .adminBtn{
     background-color: red;
 }
@@ -261,4 +264,5 @@ nav ul li a {
     right: 25%;
     margin-top:20px;
 }
+
 

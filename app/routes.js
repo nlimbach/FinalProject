@@ -94,6 +94,8 @@ module.exports = function(app, passport) {
         });
     });
 
+
+
     app.get('/placeorder', isAuthenticated, function(req, res) {
         res.render('placeorder', {
             user : req.user // get the user out of session and pass to template
@@ -102,10 +104,36 @@ module.exports = function(app, passport) {
 
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){
-        var newUserProps = [req.body.username,req.body.size, req.body.price, req.body.shirt_type, req.body.color, req.body.quantity, req.body.notes];
-        connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes) VALUES (?, ?, ?, ?, ?, ?, ?)", newUserProps, function(err, data) {
-                res.json(data);
-            });
+        var newUserProps = [req.body.username,req.body.size, req.body.price, req.body.shirt_type, req.body.color, req.body.quantity, req.body.notes, req.body.status];
+
+             connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",newUserProps, function(err, data) {
+
+            res.json(data);
+        });
+    });
+
+    app.get('/placeorder', isAuthenticated, function(req, res) {
+        connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+            console.log(err);
+            if (err) {
+                return res.status(500).end();
+            }
+
+            console.log(data.RowDataPacket);
+            res.render("placeorder", { cartOrders : data, user: req.user });
+        });
+    });
+
+    app.get('/checkout', isAuthenticated, function(req, res) {
+        connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+            console.log(err);
+            if (err) {
+                return res.status(500).end();
+            }
+
+            console.log(data.RowDataPacket);
+            res.render("checkout", { cartOrders : data, user: req.user });
+        });
     });
 
     //Admin users and inventory logic

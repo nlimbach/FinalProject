@@ -10,6 +10,67 @@
 
 <div class ="login-image">
     <div class="container z-depth-5 col s12" id="placeOrderContainer">
+
+       <!-- Shopping Cart Modal-->
+        <a class="btn-floating red modal-trigger btn-small right" href="#modal1">
+            <i class="material-icons medium red">shopping_cart</i>
+        </a>
+
+        <div id="modal1" class="modal bottom-sheet z-depth-5">
+            <a href="/checkout" class="modal-action modal-close waves-effect right red btn">Checkout</a>
+            <div class="modal-content">
+                <ul class="collection">
+
+                    {{#each cartOrders}}
+
+                    <li class="collection-item avatar">
+                        <i class="material-icons red small circle">shopping_basket</i>
+                        <span class="title">Title</span>
+
+                            <strong>Size: </strong>{{this.size }}<br>
+                            <strong>Type of Shirt: </strong> {{ this.shirt_type}}<br>
+                            <strong>Color: </strong> {{this.color}}<br>
+                            <strong>Quantity: </strong>{{this.quantity}}<br>
+                            <strong>Price: </strong> {{this.price}}<br>
+                            <strong>Additional Notes: </strong> {{this.notes}}<br>
+
+                        <a href="#!" class="secondary-content"><i class="material-icons medium red-text ">clear</i></a>
+                    </li>
+
+                    {{/each}}
+                    <li class="collection-item avatar">
+                        <i class="material-icons red small circle">shopping_basket</i>
+                        <span class="title">Title</span>
+                        <p>First Line <br>
+                            Second Line
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons medium red-text">clear</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="material-icons red small circle">shopping_basket</i>
+                        <span class="title">Title</span>
+                        <p>First Line <br>
+                            Second Line
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons medium red-text">clear</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="material-icons red small circle">shopping_basket</i>
+                        <span class="title">Title</span>
+                        <p>First Line <br>
+                            Second Line
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons medium red-text">clear</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- End Shopping Cart Modal-->
+
+
+
         <div class ="" id ="placeOrderForm">
             <div class="row">
                 <div class = "col s6 place-image center-align">
@@ -99,10 +160,13 @@
                             <div class="col s3">
                             </div>
                             <div class="col s6 center-align center section">
-                                <button class="btn waves-effect waves-light red" id="placeorder" type="submit" name="action">Order</button>
+                                <button class="btn waves-effect waves-light red" id="placeorder" type="submit" name="action">Add to Cart</button>
                             </div>
                         </div>
                     </form>
+                    <div id="insertShoppingCart">
+
+                    </div>
                     </div>
                 </div>
             </div>
@@ -111,7 +175,18 @@
 </div>
 <script>
     //logic for placing order and saving to db
+    var count =0;
     var price;
+
+
+    $(document).ready(function(){
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+
+    });
+
+
+
     $('.quantity-right-plus').click(function(e){
         e.preventDefault();
         // Get the field name
@@ -215,7 +290,8 @@
             shirt_type: shirtType,
             color: color,
             quantity: quantity,
-            notes: notes
+            notes: notes,
+            status: 'cart'
         };
         console.log(newUserOrder);
         // Send the POST request.
@@ -223,11 +299,12 @@
             type: "POST",
             data: newUserOrder
         }).then(function () {
-            //log to browser console to let us know that the database has been updated
-            console.log("created new order");
-            // Reload the page to get the updated list
-            location.reload();
-            }
+                    //log to browser console to let us know that the database has been updated
+                    console.log("created new order");
+                    // Reload the page to get the updated list
+                    location.reload();
+                }
         );
     })
+
 </script>
