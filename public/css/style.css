@@ -8,7 +8,6 @@ body {
 
 .links{
     display:inline-block;
-    margin-bottom:10px;
     color:red;
 }
 
@@ -20,13 +19,6 @@ body {
     margin-bottom:10px;
 }
 
-a#navLogo{
-    font-size: 62px;
-    color: #0d47a1;
-    text-align: center;
-    display:block;
-    padding-top:15px;
-}
 
 .fixed-action-btn.horizontal ul{
     top: 10%;
@@ -49,22 +41,6 @@ a#navLogo{
 }
 
 
-ul.left li a{
-    font-size: large;
-    vertical-align: middle;
-    height: 72px;
-}
-
-
-nav ul li {
-    display:inline-block;
-    float:none;
-    color:black;
-}
-
-nav ul li:hover {
-    color: red;
-}
 
 .colorBox {
     /*align-items: center;*/
@@ -93,14 +69,6 @@ p{
     text-align: center;
 }
 
-nav{
-    height:150px;
-}
-
-#profileNav{
-    height: 150px;
-}
-
 #quantity{
     width:20%;
 }
@@ -112,106 +80,12 @@ nav{
     background-size: cover;
 }
 
-#loginTitle{
-    padding-top: 15px;
-    padding-bottom:25px;
-}
-
-#userNameInput{
-    text-align: center;
-    padding-top:5px;
-}
-
-#passwordInput{
-    text-align: center
-}
-
-#userNameInputLabel{
-    font-size: 18px;
-}
-
-#passwordInputLabel{
-    font-size: 18px;
-}
-
-#password-input{
-    width: 70%;
-}
-
-#username-input {
-    width: 70%;
-}
-
-
-.form {
-    display: inline-block;
-}
-
-#loginCard{
-    text-align: center;
-    margin: 20px auto;
-}
-
 .valign-wrapper .form-group{
     float: none;
 }
 
 #loginButtonRow{
     margin-bottom:0px;
-}
-
-.navAbout{
-    color:black;
-}
-
-.navSignup{
-    color: black;
-}
-
-.navHome{
-    color: black;
-}
-
-.navLogin{
-    color:black;
-}
-
-.navPlaceorder{
-    color: black;
-}
-
-.navProfile{
-    color: black;
-}
-
-.navProfile:hover{
-    color:red;
-    background-color: transparent;
-}
-
-.navLogin:hover{
-    color:red;
-    background-color: transparent;
-}
-
-.navHome:hover{
-    color:red;
-    background-color: transparent;
-}
-
-.navPlaceorder:hover{
-    color:red;
-    background-color:transparent;
-}
-
-.navSignup:hover{
-    color:red;
-    background-color: transparent;
-}
-
-.navAbout:hover{
-    color:red;
-    background-color: transparent;
 }
 
 #logoutButton {
@@ -229,36 +103,6 @@ p.center-align{
 
 #loginButtonRow{
     margin-bottom:0px;
-}
-
-#signupSubmit{
-    background-color:red;
-    color: white;
-    margin-bottom:15px;
-}
-
-#fName-input{
-    width:70%;
-}
-
-#lName-input{
-    width:70%;
-}
-
-#number-input{
-    width:70%;
-}
-
-#email-input{
-    width:70%;
-}
-
-#usernameinput{
-    width:70%;
-}
-
-#passwordinput{
-    width:70%;
 }
 
 #addPrice{
@@ -296,11 +140,12 @@ p.center-align{
     margin: 20px auto;
 }
 
-#signupCard{
-    margin: 20px auto;
-}
-
 #aboutCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
     margin-top:20px;
 }
 
@@ -318,3 +163,102 @@ p.center-align{
 .adminBtn{
     background-color: red;
 }
+
+.border{
+    position:relative;
+}
+
+.border:hover::after{
+    content:'';
+    position:absolute;
+    width: 100%;
+    height: 0;
+    left:0;
+    bottom:0px; /*Change this to increase/decrease distance*/
+    border-bottom: 2px solid white;
+}
+
+.brandLogo{
+    margin-top: 14px;
+    margin-left: 10px;
+}
+
+.brandLogo:hover{
+    background-color: red;
+}
+
+nav{
+    background-color: black;
+}
+
+
+nav ul li a {
+    text-decoration: none;
+}
+
+#signUpCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+
+.form-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 15%;
+    padding-left: 15%;
+}
+
+.form-group :focus {
+    border-bottom: 1px solid red !important;
+}
+
+#signupSubmit{
+    margin-bottom:10px;
+    background-color:red;
+    color: white;
+}
+
+.signUpButton{
+    margin-bottom:10px;
+}
+
+#loginCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+
+.loginButton{
+    margin-bottom:10px;
+}
+
+.adminCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+
+.adminBtn{
+    margin-bottom:10px;
+}
+
+.inventoryCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+

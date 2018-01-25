@@ -33,6 +33,15 @@ CREATE TABLE IF NOT EXISTS`' + dbconfig.database + '`.`' + dbconfig.orders_table
      PRIMARY KEY (id), \
 )');
 
+connection.query('\
+CREATE TABLE IF NOT EXISTS`' + dbconfig.database + '`.`' + dbconfig.inventory_table + '` ( \
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT, \
+    `short_sleeve` INT(10) NOT NULL, \
+    `long_sleeve` INT(10) NOT NULL, \
+    `sweatshirt` INT(10) NOT NULL, \
+     PRIMARY KEY (`id`), \
+)');
+
 console.log('Success: Database Created!');
 
 connection.end();

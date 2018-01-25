@@ -1,19 +1,18 @@
-<nav class="white">
-    <div class= "nav-wrapper">
-        <a href="/about" class="black-text col s12" id="navLogo">Chuck's Tees</a>
-        <ul id="nav-mobile" class="center-align">
-            <li><a href="/profile" class="navProfile">Profile</a></li>
-            <li><a href="/login" class="navLogin">Login</a></li>
-            <li><a href="/signup" class="navSignup">Sign Up</a></li>
-        </ul>
-    </div>
+<nav>
+    <ul>
+        <li class="btn red brandLogo border"><a href="/about">Chuck's Tees</a></li>
+        <li class="border"><a href="/">Home</a></li>
+        <li class="border"><a href="/login">Login</a></li>
+        <li class="border"><a href="/signup">Sign Up</a></li>
+    </ul>
 </nav>
 
 <div class="login-image z-depth-5">
-    <div class="row">
+    <div class="card center-align z-depth-4 adminCard">
+        <h4 class="center-align black-text card-title">Admin</h4>
             <div class="col l6 m12 offset-l3">
-                <a class="adminBtn waves-effect waves-light btn">Inventory</a>
-                <a class="adminBtn waves-effect waves-light btn">Users</a>
+                <button class="btn waves-effect waves-light red" id="inventorySubmit" type="submit" name="action">Inventory</button>
+                <button class="btn waves-effect waves-light red" id="usersSubmit" type="submit" name="action">Users</button>
             </div>
     </div>
 </div>

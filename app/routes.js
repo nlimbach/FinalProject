@@ -108,6 +108,18 @@ module.exports = function(app, passport) {
             });
     });
 
+    //Admin users and inventory logic
+    app.get('/inventory', isAdmin, function(req, res) {
+        connection.query("SELECT * FROM inventory", function(err, data) {
+            console.log(err);
+            if (err) {
+                return res.status(500).end();
+            }
+
+            res.render("inventory", { inventory : data });
+        });
+    });
+
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
@@ -131,10 +143,12 @@ function isAuthenticated(req,res,next){
         })
 
 }
+//for testing
+//username - ZachLowe password-LowePost
 
 function isAdmin(req,res,next){
     console.log(req.user.username);
-    if(req.user.username === "Carrendale" || req.user.username === "Nlimbach") {
+    if(req.user.username === "ZachLowe" || req.user.username === "Nlimbach") {
         return next();
     }
         else
