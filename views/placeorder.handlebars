@@ -22,14 +22,24 @@
             <a href="/checkout" class="modal-action modal-close waves-effect right red btn">Checkout</a>
             <div class="modal-content">
                 <ul class="collection">
+
+                    {{#each cartOrders}}
+
                     <li class="collection-item avatar">
                         <i class="material-icons red small circle">shopping_basket</i>
                         <span class="title">Title</span>
-                        <p>First Line <br>
-                            Second Line
-                        </p>
+
+                            <strong>Size: </strong>{{this.size }}<br>
+                            <strong>Type of Shirt: </strong> {{ this.shirt_type}}<br>
+                            <strong>Color: </strong> {{this.color}}<br>
+                            <strong>Quantity: </strong>{{this.quantity}}<br>
+                            <strong>Price: </strong> {{this.price}}<br>
+                            <strong>Additional Notes: </strong> {{this.notes}}<br>
+
                         <a href="#!" class="secondary-content"><i class="material-icons medium red-text ">clear</i></a>
                     </li>
+
+                    {{/each}}
                     <li class="collection-item avatar">
                         <i class="material-icons red small circle">shopping_basket</i>
                         <span class="title">Title</span>
@@ -57,7 +67,11 @@
                 </ul>
             </div>
         </div>
+
+
         <!-- End Shopping Cart Modal-->
+
+
 
         <div class ="" id ="placeOrderForm">
             <div class="row">
@@ -170,6 +184,7 @@
     $(document).ready(function(){
         // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
         $('.modal').modal();
+
     });
 
 
@@ -278,7 +293,7 @@
             color: color,
             quantity: quantity,
             notes: notes,
-            status: "cart"
+            status: 'cart'
         };
         console.log(newUserOrder);
         // Send the POST request.

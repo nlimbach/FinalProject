@@ -104,7 +104,7 @@ module.exports = function(app, passport) {
 
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){
-        var newUserProps = [req.body.username,req.body.size, req.body.price, req.body.shirt_type, req.body.color, req.body.quantity, req.body.notes];
+        var newUserProps = [req.body.username,req.body.size, req.body.price, req.body.shirt_type, req.body.color, req.body.quantity, req.body.notes, req.body.status];
 
              connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",newUserProps, function(err, data) {
 
@@ -112,7 +112,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get('/shoppingcart', isAuthenticated, function(req, res) {
+    app.get('/placeorder', isAuthenticated, function(req, res) {
         connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
             console.log(err);
             if (err) {
@@ -120,7 +120,7 @@ module.exports = function(app, passport) {
             }
 
             console.log(data.RowDataPacket);
-            res.render("cart", { cartOrders : data, user: req.user });
+            res.render("placeorder", { cartOrders : data, user: req.user });
         });
     });
 
