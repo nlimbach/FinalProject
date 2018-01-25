@@ -105,6 +105,20 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.delete("/order/:id", function(req, res) {
+        connection.query("DELETE FROM finalprojectorders WHERE id = ?", [req.params.id], function(err, result) {
+            if (err) {
+                // If an error occurred, send a generic server faliure
+                return res.status(500).end();
+            } else if (result.affectedRows == 0) {
+                // If no rows were changed, then the ID must not exist, so 404
+                return res.status(404).end();
+            } else {
+                res.status(200).end();
+            }
+        });
+    });
+
 
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){

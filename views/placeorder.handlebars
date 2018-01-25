@@ -25,15 +25,15 @@
 
                     <li class="collection-item avatar">
                         <i class="material-icons red small circle">shopping_basket</i>
-
-                            <strong>Size: </strong>{{this.size }}<br>
-                            <strong>Type of Shirt: </strong> {{ this.shirt_type}}<br>
+                            <strong>id: </strong>{{this.id}}<br>
+                            <strong>Size: </strong>{{this.size}}<br>
+                            <strong>Type of Shirt: </strong> {{this.shirt_type}}<br>
                             <strong>Color: </strong> {{this.color}}<br>
                             <strong>Quantity: </strong>{{this.quantity}}<br>
                             <strong>Price: </strong> {{this.price}}<br>
                             <strong>Additional Notes: </strong> {{this.notes}}<br>
 
-                        <a href="#!" class="secondary-content"><i class="material-icons medium red-text ">clear</i></a>
+                        <a href="#!" class="secondary-content delOrder" data-orderID="{{this.id}}"><i class="material-icons medium red-text">clear</i></a>
                     </li>
 
                     {{/each}}
@@ -282,5 +282,23 @@
                 }
         );
     })
+
+
+
+        $(".delOrder").on("click", function(event) {
+            var id = $(this).data("orderID");
+            console.log("ID is " + id)
+            // Send the DELETE request.
+            $.ajax("/order/" + id, {
+                type: "DELETE"
+            }).then(
+                    function() {
+                        console.log("deleted id ", id);
+                        // Reload the page to get the updated list
+                        location.reload();
+                    }
+            );
+        });
+
 
 </script>
