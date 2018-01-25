@@ -314,6 +314,12 @@ p.center-align{
     text-shadow: 1px 1px 0px white;
     width:auto;
 }
+<<<<<<< HEAD
 .shopping-cart{
     margin-right: 5px;
+=======
+
+.adminBtn{
+    background-color: red;
+>>>>>>> 402462f6f61165b855c6eac89cfa291d1ee54747
 }
