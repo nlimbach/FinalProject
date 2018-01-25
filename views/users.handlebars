@@ -1,0 +1,28 @@
+<nav>
+    <ul>
+        <li class="btn red brandLogo border"><a href="/about">Chuck's Tees</a></li>
+        <li class="border"><a href="/">Home</a></li>
+        <li class="border"><a href="/profile">Login</a></li>
+        <li class="border"><a href="/placeorder">Shop</a></li>
+        <li class="border"><a href="/logout">Sign Up</a></li>
+    </ul>
+</nav>
+
+<div class="login-image z-depth-5">
+    <div class="row valign-wrapper">
+        <div class="col l6 m8 s12" id="profileContainer">
+            <h3 class="center">Users</h3>
+            {{#each users}}
+            <div class=“card” id="userCard">
+                <div class="center">
+                    <strong>Username</strong>: {{this.username }}<br>
+                    <strong>First Name</strong>: {{ this.user_first_name }}<br>
+                    <strong>Last Name</strong>: {{ this.user_last_name }}<br>
+                    <strong>Phone Number</strong>: {{ this.user_number }}<br>
+                    <strong>Email</strong>: {{ this.user_email }}<br>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

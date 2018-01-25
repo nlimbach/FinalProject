@@ -4,12 +4,9 @@ var connection = mysql.createConnection(dbconfig.connection, function(err){
     if(err)throw err;
 });
 
-
 connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
-
-
 
 //routes to render pages
     app.get('/', function(req, res) {
@@ -143,9 +140,17 @@ module.exports = function(app, passport) {
             if (err) {
                 return res.status(500).end();
             }
-
             res.render("inventory", { inventory : data });
         });
+    });
+
+    app.get('/users', isAdmin, function(req,res){
+       connection.query("SELECT * FROM users", function(err, data){
+           if(err){
+               return res.status(500).end();
+           }
+           res.render("users", {users: data, user: req.user})
+       })
     });
 
 
