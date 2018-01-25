@@ -29,11 +29,11 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get('/placeorder', function(req, res){
-        res.render('placeorder.handlebars', {
-            user : req.user // get the user out of session and pass to template
-        });
-    });
+    // app.get('/placeorder', function(req, res){
+    //     res.render('placeorder.handlebars', {
+    //         user : req.user // get the user out of session and pass to template
+    //     });
+    // });
 
     // LOGIN ===============================
     // show the login form
@@ -94,10 +94,17 @@ module.exports = function(app, passport) {
 
 
     app.get('/placeorder', isAuthenticated, function(req, res) {
-        res.render('placeorder', {
-            user : req.user // get the user out of session and pass to template
+        connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+            console.log(err);
+            if (err) {
+                return res.status(500).end();
+            }
+
+            res.render("placeorder", { cartOrders : data, user: req.user });
+            console.log("data that is retreived from get: " + data)
         });
     });
+
 
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){
@@ -109,17 +116,6 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.get('/placeorder', isAuthenticated, function(req, res) {
-        connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
-            console.log(err);
-            if (err) {
-                return res.status(500).end();
-            }
-
-            console.log(data.RowDataPacket);
-            res.render("placeorder", { cartOrders : data, user: req.user });
-        });
-    });
 
     app.get('/checkout', isAuthenticated, function(req, res) {
         connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
