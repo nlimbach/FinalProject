@@ -34,12 +34,16 @@ CREATE TABLE IF NOT EXISTS`' + dbconfig.database + '`.`' + dbconfig.orders_table
 )');
 
 connection.query('\
-CREATE TABLE IF NOT EXISTS`' + dbconfig.database + '`.`' + dbconfig.inventory_table + '` ( \
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT, \
-    `short_sleeve` INT(10) NOT NULL, \
-    `long_sleeve` INT(10) NOT NULL, \
-    `sweatshirt` INT(10) NOT NULL, \
-     PRIMARY KEY (`id`), \
+CREATE TABLE IF NOT EXISTS`' + dbconfig.database + '`.`' + dbconfig.inventory_table + '` (\
+    `id` NOT NULL AUTO_INCREMENT, \
+    `type_of_shirt` VARCHAR(255), \
+    `size` VARCHAR(255), \
+    `color` VARCHAR(255), \
+    `material` VARCHAR(255), \
+    `quantity` INT NOT NULL, \
+    `cost` INT NOT NULL, \
+    `price` INT, \
+     PRIMARY KEY (id), \
 )');
 
 console.log('Success: Database Created!');

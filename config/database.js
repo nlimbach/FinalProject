@@ -7,6 +7,7 @@ module.exports = {
     'database': 'screen_printer',
     'users_table': 'users',
     'orders_table': 'finalprojectorders',
-    'inventory_table': 'inventory'
+    'inventory_table': 'inventory',
+
 };
 

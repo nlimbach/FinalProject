@@ -257,17 +257,34 @@ nav ul li a {
     margin-bottom:10px;
 }
 
-.inventoryCard{
+#inventoryContainer{
+    overflow: scroll;
+}
+
+#inventoryTable{
+    width: 75%;
+    height:75%;
     background-color: rgba(255,255,255, 0.9);
     margin: auto;
     position: absolute;
-    left:25%;
-    right: 25%;
     margin-top:20px;
+}
+
+#inventorySubmit{
+    color: white;
+}
+
+#userSubmit{
+    color:white;
+}
+
+#adminButtons{
+    margin-bottom: 20px;
 }
 
 #userCard{
     margin-top:20px;
 }
+
 
 

@@ -103,7 +103,7 @@ module.exports = function(app, passport) {
     app.post("/newOrder", isAuthenticated, function(req,res){
         var newUserProps = [req.body.username,req.body.size, req.body.price, req.body.shirt_type, req.body.color, req.body.quantity, req.body.notes, req.body.status];
 
-             connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",newUserProps, function(err, data) {
+             connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", newUserProps, function(err, data) {
 
             res.json(data);
         });
@@ -183,10 +183,13 @@ function isAdmin(req,res,next){
     console.log(req.user.username);
     if(req.user.username === "ZachLowe" || req.user.username === "Nlimbach") {
         return next();
+
     }
-        else
+        else {
             return res.status(401).json({
                 error: "user does not have access"
-            })
+            });
+
+    }
 
 }
