@@ -9,6 +9,8 @@ connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
 
+
+
 //routes to render pages
     app.get('/', function(req, res) {
         res.render('about'); // load the home page
@@ -35,7 +37,6 @@ module.exports = function(app, passport) {
             user : req.user // get the user out of session and pass to template
         });
     });
-
 
     // LOGIN ===============================
     // show the login form
@@ -102,7 +103,7 @@ module.exports = function(app, passport) {
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){
         var newUserProps = [req.body.username,req.body.size, req.body.price, req.body.shirt_type, req.body.color, req.body.quantity, req.body.notes];
-        connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes) VALUES (?, ?, ?, ?, ?, ?, ?)",newUserProps, function(err, data) {
+        connection.query("INSERT INTO finalprojectorders (username,size,price,shirt_type,color,quantity,notes) VALUES (?, ?, ?, ?, ?, ?, ?)", newUserProps, function(err, data) {
                 res.json(data);
             });
     });
@@ -113,6 +114,12 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
+
+    app.get('/adminLanding', isAdmin, function(req,res){
+        res.render('AdminLanding.handlebars', {
+            user: req.user
+        });
+    });
 };
 
 function isAuthenticated(req,res,next){
@@ -122,5 +129,17 @@ function isAuthenticated(req,res,next){
         return res.status(401).json({
             error: 'User not authenticated'
         })
+
+}
+
+function isAdmin(req,res,next){
+    console.log(req.user.username);
+    if(req.user.username === "Carrendale" || req.user.username === "Nlimbach") {
+        return next();
+    }
+        else
+            return res.status(401).json({
+                error: "user does not have access"
+            })
 
 }
