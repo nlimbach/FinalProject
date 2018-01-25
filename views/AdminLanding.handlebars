@@ -2,17 +2,17 @@
     <ul>
         <li class="btn red brandLogo border"><a href="/about">Chuck's Tees</a></li>
         <li class="border"><a href="/">Home</a></li>
-        <li class="border"><a href="/login">Login</a></li>
-        <li class="border"><a href="/signup">Sign Up</a></li>
+        <li class="border"><a href="/users">Users</a></li>
+        <li class="border"><a href="/inventory">Inventory</a></li>
     </ul>
 </nav>
 
 <div class="login-image z-depth-5">
     <div class="card center-align z-depth-4 adminCard">
         <h4 class="center-align black-text card-title">Admin</h4>
-            <div class="col l6 m12 offset-l3">
-                <button class="btn waves-effect waves-light red" id="inventorySubmit" type="submit" name="action">Inventory</button>
-                <button class="btn waves-effect waves-light red" id="usersSubmit" type="submit" name="action"><a href="/users">Users</a></button>
+            <div class="col l6 m12 offset-l3" id="adminButtons">
+                <button class="btn waves-effect waves-light red" type="submit" name="action"><a href="/inventory" id="inventorySubmit">Inventory</a></button>
+                <button class="btn waves-effect waves-light red" type="submit" name="action"><a href="/users" id="userSubmit">Users</a></button>
             </div>
     </div>
 </div>
