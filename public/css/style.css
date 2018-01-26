@@ -138,6 +138,7 @@ p.center-align{
 #profileContainer{
     background-color: rgba(255,255,255, 0.9);
     margin: 20px auto;
+    overflow: scroll;
 }
 
 #aboutCard{
@@ -302,9 +303,14 @@ tbody{
 }
 
 
-#checkout{
-    margin-top:15px;
-    margin-right:15px;
-    margin-bottom:15px;
+.collapsible-header {
+    text-align: center;
 }
 
+button.stripe-button-el>span {
+    background-color: red !important;
+    background-image: none;
+}
+.stripe-button-el  {
+    margin-left:48%;
+}

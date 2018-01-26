@@ -18,7 +18,7 @@
 
         <div id="modal1" class="modal bottom-sheet z-depth-5">
 
-            <a href="/checkout" class="modal-action checkout modal-close waves-effect right red btn">Checkout</a>
+            <!--<a id="customButton" class="modal-action checkout modal-close waves-effect right red btn">Checkout</a>-->
             <div class="modal-content"
             >
                 <ul class="collection">
@@ -41,6 +41,19 @@
                     {{/each}}
 
                 </ul>
+                <form action="/your-server-side-code" method="POST">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_l7zHN9jYSGIq2rgUDHaJ51tH"
+                            data-amount="5000"
+                            data-name="Chucks Tees"
+                            data-description="Payment"
+                            data-image="http://www.urltarget.com/images/shirt-tshirt-red-clothing.png"
+                            data-locale="auto"
+                            data-shipping-address ="true"
+                            data-billing-address ="true">
+                    </script>
+                </form>
             </div>
         </div>
 
@@ -301,6 +314,12 @@
                     }
             );
         });
+
+
+    //    Checkout System for payment processsing
+
+
+
 
 
 </script>
