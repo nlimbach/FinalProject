@@ -138,6 +138,7 @@ p.center-align{
 #profileContainer{
     background-color: rgba(255,255,255, 0.9);
     margin: 20px auto;
+    overflow: scroll;
 }
 
 #aboutCard{
@@ -301,6 +302,7 @@ tbody{
     height: calc( 100% - 4em )
 }
 
-
-
+.collapsible-header{
+    text-align: center;
+}
 

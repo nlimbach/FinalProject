@@ -29,12 +29,6 @@ module.exports = function(app, passport) {
         });
     });
 
-    // app.get('/placeorder', function(req, res){
-    //     res.render('placeorder.handlebars', {
-    //         user : req.user // get the user out of session and pass to template
-    //     });
-    // });
-
     // LOGIN ===============================
     // show the login form
     app.get('/login', function(req, res) {
@@ -90,7 +84,6 @@ module.exports = function(app, passport) {
             res.render("profile", { orders : data, user: req.user });
         });
     });
-
 
 
     app.get('/placeorder', isAuthenticated, function(req, res) {
@@ -153,6 +146,7 @@ module.exports = function(app, passport) {
             res.render("inventory", { inventory : data });
         });
     });
+
 
     app.get('/users', isAdmin, function(req,res){
        connection.query("SELECT * FROM users", function(err, data){
