@@ -302,7 +302,15 @@ tbody{
     height: calc( 100% - 4em )
 }
 
-.collapsible-header{
+
+.collapsible-header {
     text-align: center;
 }
 
+button.stripe-button-el>span {
+    background-color: red !important;
+    background-image: none;
+}
+.stripe-button-el  {
+    margin-left:48%;
+}

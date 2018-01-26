@@ -9,4 +9,18 @@
         </ul>
     </div>
 </nav>
-<h1>TEST CHECKOUT ROUTE</h1>
+<form action="/profile" method="POST">
+    <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button center"
+            data-key="pk_test_l7zHN9jYSGIq2rgUDHaJ51tH"
+            data-amount="999"
+            data-name="Demo Site"
+            data-description="Widget"
+            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+            data-locale="auto"
+            data-billing-address="true"
+            data-shipping-address="true"
+            data-description="description"
+            data-amount="87.71">
+    </script>
+</form>
