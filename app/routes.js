@@ -1,8 +1,15 @@
 var mysql = require('mysql');
 var dbconfig = require('../config/database');
+const charge = require('../config/charge');
+const dotenv = require('dotenv');
 var connection = mysql.createConnection(dbconfig.connection, function(err){
     if(err)throw err;
 });
+
+
+
+
+
 
 connection.query('USE ' + dbconfig.database);
 
@@ -112,6 +119,19 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.post('/charge', (req, res, next) => {
+
+        console.log("Stripe Data: ", req.body);
+        const token = req.body.stripeToken;
+
+        charge(token).then(data => {
+            res.redirect('/profile');
+
+        }).catch(error => {
+            res.json({error: "it does not work", error});
+        });
+
+    });
 
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){
