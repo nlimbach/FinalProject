@@ -123,6 +123,13 @@ module.exports = function(app, passport) {
         });
     });
 
+    //UPDATE INVENTORY TO RESPOND TO ORDERS
+    app.get("/newOrder", isAdmin, function(req, res){
+       var quantity = [req.body.quantity];
+       connection.query("INSERT INTO inventory (quantity) VALUES (?)", quantity, function(err, data){
+           res.json(data);
+       })
+    });
 
     app.get('/checkout', isAuthenticated, function(req, res) {
         connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
