@@ -258,7 +258,7 @@ nav ul li a {
 }
 
 #inventoryContainer{
-    overflow: scroll;
+    padding-top:20px;
 }
 
 #inventoryTable{
@@ -267,7 +267,6 @@ nav ul li a {
     background-color: rgba(255,255,255, 0.9);
     margin: auto;
     position: absolute;
-    margin-top:20px;
 }
 
 #inventorySubmit{
@@ -285,6 +284,23 @@ nav ul li a {
 #userCard{
     margin-top:20px;
 }
+
+tbody {
+    display:block;
+    height:100%;
+    overflow:auto;
+}
+
+thead, tbody tr {
+    display:table;
+    width:90%;
+    table-layout:fixed;
+}
+
+tbody{
+    height: calc( 100% - 4em )
+}
+
 
 
 
