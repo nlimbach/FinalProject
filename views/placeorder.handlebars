@@ -17,8 +17,10 @@
         </a>
 
         <div id="modal1" class="modal bottom-sheet z-depth-5">
-            <a href="/checkout" class="modal-action modal-close waves-effect right red btn">Checkout</a>
-            <div class="modal-content">
+
+            <a href="/checkout" class="modal-action checkout modal-close waves-effect right red btn">Checkout</a>
+            <div class="modal-content"
+            >
                 <ul class="collection">
 
                     {{#each cartOrders}}
@@ -33,7 +35,7 @@
                             <strong>Price: </strong> {{this.price}}<br>
                             <strong>Additional Notes: </strong> {{this.notes}}<br>
 
-                        <a href="#!" class="secondary-content delOrder" data-orderID="{{this.id}}"><i class="material-icons medium red-text">clear</i></a>
+                        <a href="#!" class="secondary-content delOrder" idnum="{{this.id}}"><i class="material-icons medium red-text">clear</i></a>
                     </li>
 
                     {{/each}}
@@ -286,7 +288,7 @@
 
 
         $(".delOrder").on("click", function(event) {
-            var id = $(this).data("orderID");
+            var id = $(this).attr("idnum");
             console.log("ID is " + id)
             // Send the DELETE request.
             $.ajax("/order/" + id, {
