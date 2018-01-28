@@ -133,8 +133,16 @@ module.exports = function(app, passport) {
         const token = req.body.stripeToken;
 
         charge(token).then(data => {
-            res.redirect('/survey');
 
+            connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+                console.log(err);
+                if (err) {
+                    return res.status(500).end();
+                }
+
+                console.log("Rows updated:" + res.changedRows);
+                res.redirect('/survey');
+            })
         }).catch(error => {
             res.json({error: "it does not work", error});
         });
@@ -167,17 +175,17 @@ module.exports = function(app, passport) {
     });
 
 //Update orders table to update items in shopping cart to "purchased" status
-    app.put('/ItemPurchased', isAuthenticated, function(req, res) {
-        connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
-            console.log(err);
-            if (err) {
-                return res.status(500).end();
-            }
-
-            console.log("Rows updated:" + res.changedRows);
-            res.render("survey");
-        });
-    });
+//     app.put('/ItemPurchased', isAuthenticated, function(req, res) {
+//         connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+//             console.log(err);
+//             if (err) {
+//                 return res.status(500).end();
+//             }
+//
+//             console.log("Rows updated:" + res.changedRows);
+//             res.render("survey");
+//         });
+//     });
     //Admin users and inventory logic
     app.get('/inventory', isAdmin, function(req, res) {
         connection.query("SELECT * FROM inventory", function(err, data) {
