@@ -11,9 +11,6 @@ connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
 
-
-
-
 //routes to render pages
     app.get('/', function(req, res) {
         res.render('about'); // load the home page
