@@ -1,4 +1,4 @@
-const reactHelper = require('react-helper');
+const reactHelper = require('reactHelper');
 
 /** Register your components in this file **/
 //const SomeComponent = require('./path/to/a/component');

@@ -79,8 +79,9 @@ module.exports = function(app, passport) {
 
     //routes to authenticate profile and placeorder pages
 
+    //Display all purchased items in profile
     app.get('/profile', isAuthenticated, function(req, res) {
-        connection.query("SELECT * FROM finalprojectorders WHERE username = ?",[req.user.username], function(err, data) {
+        connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'purchased'",[req.user.username], function(err, data) {
             console.log(err);
             if (err) {
                 return res.status(500).end();
@@ -95,7 +96,7 @@ module.exports = function(app, passport) {
 
 
 
-
+//Display items in shopping cart after they are added to cart
     app.get('/placeorder', isAuthenticated, function(req, res) {
         connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
             console.log(err);
@@ -108,6 +109,8 @@ module.exports = function(app, passport) {
         });
     });
 
+
+//delete orders from table if deleted out of shopping carts
     app.delete("/order/:id", function(req, res) {
         connection.query("DELETE FROM finalprojectorders WHERE id = ?", [req.params.id], function(err, result) {
             if (err) {
@@ -122,13 +125,15 @@ module.exports = function(app, passport) {
         });
     });
 
+
+// Initiate Charge stripe functinoality then render survey page
     app.post('/charge', (req, res, next) => {
 
         console.log("Stripe Data: ", req.body);
         const token = req.body.stripeToken;
 
         charge(token).then(data => {
-            res.redirect('/confirmation');
+            res.redirect('/survey');
 
         }).catch(error => {
             res.json({error: "it does not work", error});
@@ -137,16 +142,8 @@ module.exports = function(app, passport) {
     });
 
 
-    // app.get("/survey", isAuthenticated, function(req, res) {
-    //
-    //
-    //
-    //     req.renderComponent('Test');
-    //     res.render("survey");
-    // });
+    //On Survey page render react component
     app.get("/survey", isAuthenticated, function(req, res) {
-
-
 
             req.renderComponent('Test');
             res.render("survey");
@@ -170,18 +167,18 @@ module.exports = function(app, passport) {
        })
     });
 
-    app.get('/checkout', isAuthenticated, function(req, res) {
-        connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+//Update orders table to update items in shopping cart to "purchased" status
+    app.put('/ItemPurchased', isAuthenticated, function(req, res) {
+        connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
             console.log(err);
             if (err) {
                 return res.status(500).end();
             }
 
-            console.log(data.RowDataPacket);
-            res.render("checkout", { cartOrders : data, user: req.user });
+            console.log("Rows updated:" + res.changedRows);
+            res.render("survey");
         });
     });
-
     //Admin users and inventory logic
     app.get('/inventory', isAdmin, function(req, res) {
         connection.query("SELECT * FROM inventory", function(err, data) {

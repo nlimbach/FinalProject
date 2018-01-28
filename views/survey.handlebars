@@ -7,4 +7,25 @@
     </ul>
 </nav>
 
-<h1>{{{Test}}}</h1>
+{{{Test}}}
+
+
+<script>
+    //logic for placing order and saving to db
+var count = 0
+
+    $( document ).ready(function() {
+        if (count === 0){
+            $.ajax("/ItemPurchased", {
+                type: "PUT"
+            }).then(function () {
+                        //log to browser console to let us know that the database has been updated
+                        console.log("update order to purchased status");
+                        // Reload the page to get the updated list
+                        location.reload();
+                    })
+
+
+        }
+    });
+</script>
