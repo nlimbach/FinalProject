@@ -145,7 +145,6 @@ module.exports = function(app, passport) {
     //On Survey page render react component
     app.get("/survey", isAuthenticated, function(req, res) {
 
-            req.renderComponent('Test');
             res.render("survey");
      });
 
