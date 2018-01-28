@@ -7,13 +7,12 @@ var connection = mysql.createConnection(dbconfig.connection, function(err){
 });
 
 
-
-
-
-
 connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
+
+
+
 
 //routes to render pages
     app.get('/', function(req, res) {
@@ -93,6 +92,10 @@ module.exports = function(app, passport) {
     });
 
 
+
+
+
+
     app.get('/placeorder', isAuthenticated, function(req, res) {
         connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
             console.log(err);
@@ -125,13 +128,29 @@ module.exports = function(app, passport) {
         const token = req.body.stripeToken;
 
         charge(token).then(data => {
-            res.redirect('/profile');
+            res.redirect('/confirmation');
 
         }).catch(error => {
             res.json({error: "it does not work", error});
         });
 
     });
+
+
+    // app.get("/survey", isAuthenticated, function(req, res) {
+    //
+    //
+    //
+    //     req.renderComponent('Test');
+    //     res.render("survey");
+    // });
+    app.get("/survey", isAuthenticated, function(req, res) {
+
+
+
+            req.renderComponent('Test');
+            res.render("survey");
+     });
 
     //inserts new order to order table
     app.post("/newOrder", isAuthenticated, function(req,res){
@@ -198,6 +217,8 @@ module.exports = function(app, passport) {
     });
 };
 
+
+
 function isAuthenticated(req,res,next){
     if(req.user)
         return next();
@@ -212,7 +233,7 @@ function isAuthenticated(req,res,next){
 
 function isAdmin(req,res,next){
     console.log(req.user.username);
-    if(req.user.username === "ZachLowe" || req.user.username === "Nlimbach") {
+    if(req.user.username === "ZachLowe" || req.user.username === "nlimbach") {
         return next();
 
     }

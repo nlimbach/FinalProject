@@ -10,12 +10,14 @@ var exphbs = require("express-handlebars");
 var morgan = require('morgan');
 var path = require('path');
 
+var expressReactHelper = require('express-react-helper');
 
 
 // configuration ===============================================================
 // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
+app.use(expressReactHelper.setup());
 
 //logs every request to console yo
 app.use(morgan('dev'));
