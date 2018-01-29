@@ -137,6 +137,8 @@ module.exports = function(app, passport) {
                     return res.status(500).end();
                 }
 
+                //update inventory set quantity =
+
                 console.log("Rows updated:" + res.changedRows);
                 res.redirect('/survey');
             })
