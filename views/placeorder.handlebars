@@ -42,6 +42,9 @@
 
                 </ul>
                 <form action="/charge" method="POST">
+                    {{#each cartOrders}}
+                        <input type="hidden" name="my_data" value="{{this.id}}, {{this.size}}, {{this.shirt_type}}, {{this.color}}, {{this.quantity}},  {{this.price}}, {{this.notes}} ">
+                    {{/each}}
                     <script
                             src="https://checkout.stripe.com/checkout.js" id="testChargeButton" class="stripe-button"
                             data-key="pk_test_l7zHN9jYSGIq2rgUDHaJ51tH"
