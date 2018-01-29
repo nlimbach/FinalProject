@@ -2,6 +2,8 @@ var mysql = require('mysql');
 var dbconfig = require('../config/database');
 const charge = require('../config/charge');
 const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
+
 var connection = mysql.createConnection(dbconfig.connection, function(err){
     if(err)throw err;
 });
@@ -133,6 +135,34 @@ module.exports = function(app, passport) {
         const token = req.body.stripeToken;
 
         charge(token).then(data => {
+
+            console.log("email: " + req.body.stripeEmail);
+            var sendEmail = req.body.stripeEmail;
+
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'screenprinterbootcamp@gmail.com',
+                    pass: 'W0rkday!'
+                }
+            });
+            var mailOptions = {
+                from: 'screenprinterbootcamp@gmail.com',
+                to: sendEmail,
+                subject: 'ScreenPrinter Confirmation',
+                text: 'testing email'
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+
+
+
 
             connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
                 console.log(err);
