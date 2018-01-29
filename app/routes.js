@@ -156,7 +156,15 @@ module.exports = function(app, passport) {
                     console.log('Email sent: ' + info.response);
                 }
             });
+            // Update Inventory here
 
+
+
+
+
+
+
+            /// End update inventory here
 
 
 
