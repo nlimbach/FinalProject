@@ -149,7 +149,7 @@ module.exports = function(app, passport) {
             var mailOptions = {
                 from: 'screenprinterbootcamp@gmail.com',
                 to: sendEmail,
-                subject: 'ScreenPrinter Confirmation',
+                subject: "Order Confirmation - Chuck's Tees",
                 text: 'testing email'
             };
             transporter.sendMail(mailOptions, function (error, info) {
@@ -159,28 +159,59 @@ module.exports = function(app, passport) {
                     console.log('Email sent: ' + info.response);
                 }
             });
-            // Update Inventory here
+
+
+            // Update Inventory table here here
+
+
+            var OrderData = req.body.my_data;
+            console.log(OrderData)
 
 
 
+                // for (var i = 0; i < OrderData.length; i++){
+                //     var item = OrderData[i].split(',');
+
+                    var id = item[0];
+                    var size = item[1];
+                    var type = item[2];
+                    var color = item[3];
+                    var quantityOrder = parseInt(item[4]);
+                    var price = item[5];
+                    var notes = item[6];
+
+                    console.log(id + "," + size + ","+ type +  "," + color + "," + quantityOrder + "," + price + "," + notes)
+
+                    //    [quantityOrder, color, size, type]
+
+                   connection.query("UPDATE inventory SET quantity = quantity - 2 WHERE color = 'blue' AND size = 'small' AND type_of_shirt = 'short'", function(err, data) {
+                        console.log(err);
+                        if (err) {
+                            return res.status(500).end();
+                        }
+
+                        console.log("Rows updated:" + res.changedRows);
+
+                    })
 
 
 
 
             /// End update inventory here
 
+            // Update orders to purchased status so they move from card to purchased orders
+                connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+                    console.log(err);
+                    if (err) {
+                        return res.status(500).end();
+                    }
 
+                    console.log("Rows updated:" + res.changedRows);
 
+                })
 
-            connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
-                console.log(err);
-                if (err) {
-                    return res.status(500).end();
-                }
+            res.render("confirmation")
 
-                console.log("Rows updated:" + res.changedRows);
-                res.redirect('/survey');
-            })
         }).catch(error => {
             res.json({error: "it does not work", error});
         });
@@ -212,18 +243,6 @@ module.exports = function(app, passport) {
        })
     });
 
-//Update orders table to update items in shopping cart to "purchased" status
-//     app.put('/ItemPurchased', isAuthenticated, function(req, res) {
-//         connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
-//             console.log(err);
-//             if (err) {
-//                 return res.status(500).end();
-//             }
-//
-//             console.log("Rows updated:" + res.changedRows);
-//             res.render("survey");
-//         });
-//     });
     //Admin users and inventory logic
     app.get('/inventory', isAdmin, function(req, res) {
         connection.query("SELECT * FROM inventory", function(err, data) {
