@@ -136,72 +136,80 @@ module.exports = function(app, passport) {
 
         charge(token).then(data => {
 
-            console.log("email: " + req.body.stripeEmail);
-            var sendEmail = req.body.stripeEmail;
 
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'screenprinterbootcamp@gmail.com',
-                    pass: 'W0rkday!'
-                }
-            });
-            var mailOptions = {
-                from: 'screenprinterbootcamp@gmail.com',
-                to: sendEmail,
-                subject: "Order Confirmation - Chuck's Tees",
-                text: 'testing email'
-            };
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
+        //nodemailer
+
+            // console.log("email: " + req.body.stripeEmail);
+            // var sendEmail = req.body.stripeEmail;
+            //
+            // var transporter = nodemailer.createTransport({
+            //     service: 'gmail',
+            //     auth: {
+            //         user: 'screenprinterbootcamp@gmail.com',
+            //         pass: 'W0rkday!'
+            //     }
+            // });
+            // var mailOptions = {
+            //     from: 'screenprinterbootcamp@gmail.com',
+            //     to: sendEmail,
+            //     subject: "Order Confirmation - Chuck's Tees",
+            //     text: 'testing email'
+            // };
+            // transporter.sendMail(mailOptions, function (error, info) {
+            //     if (error) {
+            //         console.log(error);
+            //     } else {
+            //         console.log('Email sent: ' + info.response);
+            //     }
+            // });
 
 
             // Update Inventory table here here
 
 
             var OrderData = req.body.my_data;
-            console.log(OrderData)
+            console.log("orderdata array length:" + OrderData.length)
 
 
 
-                // for (var i = 0; i < OrderData.length; i++){
-                //     var item = OrderData[i].split(',');
-
-                    var id = item[0];
-                    var size = item[1];
-                    var type = item[2];
-                    var color = item[3];
-                    var quantityOrder = parseInt(item[4]);
-                    var price = item[5];
-                    var notes = item[6];
-
-                    console.log(id + "," + size + ","+ type +  "," + color + "," + quantityOrder + "," + price + "," + notes)
-
-                    //    [quantityOrder, color, size, type]
-
-                   connection.query("UPDATE inventory SET quantity = quantity - 2 WHERE color = 'blue' AND size = 'small' AND type_of_shirt = 'short'", function(err, data) {
-                        console.log(err);
-                        if (err) {
-                            return res.status(500).end();
-                        }
-
-                        console.log("Rows updated:" + res.changedRows);
-
-                    })
+                 for (var i = 0; i < OrderData.length; i++) {
 
 
+                     var item = OrderData[i].split(',');
+                     //
+                     var id = item[0];
+                     var size = item[1];
+                     var type = item[2];
+                     var color = item[3];
+                     var quantityOrder = parseInt(item[4]);
+                     var price = item[5];
+                     var notes = item[6];
+                     //
+                         console.log(id + "," + size + ","+ type +  "," + color + "," + quantityOrder + "," + price + "," + notes)
+
+
+
+
+                     connection.query("UPDATE inventory SET quantity = quantity - ? WHERE color = ? AND size = ? AND type_of_shirt = ?",[quantityOrder, color, size, type], function(err, data) {
+
+
+                          if (err) {
+                              return res.status(500).end();
+                          }
+
+                          console.log("Rows updated:" + data.changedRows);
+
+                      })
+
+                 }
 
 
             /// End update inventory here
 
             // Update orders to purchased status so they move from card to purchased orders
                 connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
-                    console.log(err);
+
+
                     if (err) {
                         return res.status(500).end();
                     }
