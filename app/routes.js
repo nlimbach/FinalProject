@@ -190,7 +190,7 @@ module.exports = function(app, passport) {
 
 
 
-                     connection.query("UPDATE inventory SET quantity = quantity - ? WHERE color = ? AND size = ? AND type_of_shirt = ?",[quantityOrder, color, size, type], function(err, data) {
+                     connection.query("UPDATE inventory SET quantity = quantity - ? WHERE color = ? AND size = ? AND type_of_shirt = ?",[ parseInt(quantityOrder), color, size, type], function(err, data) {
 
 
                           if (err) {
