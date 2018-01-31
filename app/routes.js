@@ -171,7 +171,73 @@ module.exports = function(app, passport) {
                 }
             });
 
+        //nodemailer
+
+            // console.log("email: " + req.body.stripeEmail);
+            // var sendEmail = req.body.stripeEmail;
+            //
+            // var transporter = nodemailer.createTransport({
+            //     service: 'gmail',
+            //     auth: {
+            //         user: 'screenprinterbootcamp@gmail.com',
+            //         pass: 'W0rkday!'
+            //     }
+            // });
+            // var mailOptions = {
+            //     from: 'screenprinterbootcamp@gmail.com',
+            //     to: sendEmail,
+            //     subject: "Order Confirmation - Chuck's Tees",
+            //     text: 'testing email'
+            // };
+            // transporter.sendMail(mailOptions, function (error, info) {
+            //     if (error) {
+            //         console.log(error);
+            //     } else {
+            //         console.log('Email sent: ' + info.response);
+            //     }
+            // });
+
+
+            // Update Inventory table here here
+
+
+            var OrderData = req.body.my_data;
+            console.log("orderdata array length:" + OrderData.length)
+
+
+
+                 for (var i = 0; i < OrderData.length; i++) {
+
+
+                     var item = OrderData[i].split(',');
+                     //
+                     var id = item[0];
+                     var size = item[1];
+                     var type = item[2];
+                     var color = item[3];
+                     var quantityOrder = parseInt(item[4]);
+                     var price = item[5];
+                     var notes = item[6];
+                     //
+                         console.log(id + "," + size + ","+ type +  "," + color + "," + quantityOrder + "," + price + "," + notes)
+
+
+
             //Update Inventory here
+
+                     connection.query("UPDATE inventory SET quantity = quantity - ? WHERE color = ? AND size = ? AND type_of_shirt = ?",[quantityOrder, color, size, type], function(err, data) {
+
+
+                          if (err) {
+                              return res.status(500).end();
+                          }
+
+                          console.log("Rows updated:" + data.changedRows);
+
+                      })
+
+                 }
+
 
             /// End update inventory here
 
@@ -186,6 +252,18 @@ module.exports = function(app, passport) {
                 console.log("Rows updated:" + res.changedRows);
                 res.redirect('/survey');
             })
+            // Update orders to purchased status so they move from card to purchased orders
+                connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+                    if (err) {
+                        return res.status(500).end();
+                    }
+
+                    console.log("Rows updated:" + res.changedRows);
+
+                })
+
+            res.render("confirmation")
+
         }).catch(error => {
             res.json({error: "it does not work", error});
         });
@@ -239,6 +317,8 @@ module.exports = function(app, passport) {
     // });
 
 //get all users
+    //Admin users and inventory logic
+
     app.get('/users', isAdmin, function(req,res){
        connection.query("SELECT * FROM users", function(err, data){
            if(err){
