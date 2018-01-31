@@ -9,7 +9,8 @@ var flash = require('connect-flash');
 var exphbs = require("express-handlebars");
 var morgan = require('morgan');
 var path = require('path');
-
+var consolidate = require("consolidate");
+var react_template = require("express-react-views").createEngine();
 var expressReactHelper = require('express-react-helper');
 
 
@@ -33,7 +34,9 @@ app.use(bodyParser.json());
 //setting up templating system
 app.use(express.static(path.join(__dirname, '/public')));
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({ defaultLayout: "main" }, consolidate.handlebars));
+app.engine("jsx", react_template, consolidate.jsx);
+
 app.set('view engine', 'handlebars'); // set up hbs for templating
 
 // required for passport

@@ -197,6 +197,11 @@ nav{
     background-color: black;
 }
 
+#analyticsNav{
+    background-color: black;
+
+}
+
 
 nav ul li a {
     text-decoration: none;
@@ -269,6 +274,8 @@ nav ul li a {
     background-color: rgba(255,255,255, 0.9);
     margin: auto;
     position: absolute;
+    overflow-x:scroll;
+    overflow-y:scroll;
 }
 
 #inventorySubmit{
@@ -279,6 +286,10 @@ nav ul li a {
     color:white;
 }
 
+#analyticsSubmit{
+    color: white;
+}
+
 #adminButtons{
     margin-bottom: 20px;
 }
@@ -286,6 +297,8 @@ nav ul li a {
 #userCard{
     margin-top:20px;
 }
+
+
 
 tbody {
     display:block;
@@ -298,6 +311,7 @@ thead, tbody tr {
     width:90%;
     table-layout:fixed;
 }
+
 
 tbody{
     height: calc( 100% - 4em )

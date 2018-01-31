@@ -13,9 +13,6 @@ connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
 
-
-
-
 //routes to render pages
     app.get('/', function(req, res) {
         res.render('about'); // load the home page
@@ -31,8 +28,9 @@ module.exports = function(app, passport) {
         res.render('forgotPW');
     });
 
-    app.get('/checkauth', function(req, res){
-        res.render('checkauth', {
+    app.get('/analytics', function(req, res){
+        res.render('analytics.jsx', {
+            orders: req.orders,
             user : req.user // get the user out of session and pass to template
         });
     });
@@ -46,7 +44,7 @@ module.exports = function(app, passport) {
 
     // process the login form.
     app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : '/about', // redirect to the secure profile section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         })
@@ -97,7 +95,6 @@ module.exports = function(app, passport) {
 
 
 
-
 //Display items in shopping cart after they are added to cart
     app.get('/placeorder', isAuthenticated, function(req, res) {
         connection.query("SELECT * FROM finalprojectorders WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
@@ -127,15 +124,52 @@ module.exports = function(app, passport) {
         });
     });
 
-
-// Initiate Charge stripe functinoality then render survey page
+    var customerPurchaseData;
+// Initiate Charge stripe functionality then render survey page
     app.post('/charge', (req, res, next) => {
+        var dataArr = req.body.my_data;
+        customerPurchaseData = [];
+
+        //console.log("dataArr: ", dataArr);
+        for(let i = 0; i < dataArr.length; i++){
+            customerPurchaseData.push(dataArr[i].split(","));
+        }
+
+        //console.log("inventoryArr: ", inventoryArr);
+
+        for(let i= 0; i < customerPurchaseData.length; i++){
+            console.log("individual item data:", customerPurchaseData[i]);
+        }
 
         console.log("Stripe Data: ", req.body);
+
         const token = req.body.stripeToken;
 
         charge(token).then(data => {
 
+            console.log("email: " + req.body.stripeEmail);
+            var sendEmail = req.body.stripeEmail;
+
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'screenprinterbootcamp@gmail.com',
+                    pass: 'W0rkday!'
+                }
+            });
+            var mailOptions = {
+                from: 'screenprinterbootcamp@gmail.com',
+                to: sendEmail,
+                subject: 'ScreenPrinter Confirmation',
+                text: 'testing email'
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
 
         //nodemailer
 
@@ -189,6 +223,7 @@ module.exports = function(app, passport) {
 
 
 
+            //Update Inventory here
 
                      connection.query("UPDATE inventory SET quantity = quantity - ? WHERE color = ? AND size = ? AND type_of_shirt = ?",[ parseInt(quantityOrder), color, size, type], function(err, data) {
 
@@ -206,10 +241,19 @@ module.exports = function(app, passport) {
 
             /// End update inventory here
 
+            connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
+                console.log(err);
+                if (err) {
+                    return res.status(500).end();
+                }
+
+                //update inventory set quantity =
+
+                console.log("Rows updated:" + res.changedRows);
+                res.redirect('/survey');
+            })
             // Update orders to purchased status so they move from card to purchased orders
                 connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
-
-
                     if (err) {
                         return res.status(500).end();
                     }
@@ -226,10 +270,12 @@ module.exports = function(app, passport) {
 
     });
 
+    app.get('/charge', isAdmin, function(req, res){
+       console.log("charge route data: ", customerPurchaseData);
+    });
 
     //On Survey page render react component
     app.get("/survey", isAuthenticated, function(req, res) {
-
             res.render("survey");
      });
 
@@ -251,17 +297,27 @@ module.exports = function(app, passport) {
        })
     });
 
-    //Admin users and inventory logic
-    app.get('/inventory', isAdmin, function(req, res) {
-        connection.query("SELECT * FROM inventory", function(err, data) {
-            console.log(err);
-            if (err) {
-                return res.status(500).end();
-            }
-            res.render("inventory", { inventory : data });
-        });
-    });
+    // app.post('/inventory', isAdmin, function(req, res){
+    //     var inventoryDataToUpdate = req.body;
+    //     var quantityToUpdate;
+    //     console.log(inventoryDataToUpdate);
+    //     for(let i = 0; i < inventoryDataToUpdate.length; i++ ){
+    //         //console.log(inventoryDataToUpdate[i]);
+    //         for(let j = 0; j < inventoryDataToUpdate[i][j]; j++){
+    //             //console.log(inventoryDataToUpdate[i][j][0]);
+    //         }
+    //
+    //     }
+    //     // connection.query("UPDATE inventory SET quantity = ? WHERE type_of_shirt = ? & size = ? & material = ? & quantity = ?", [quantityToUpdate], function(err, data){
+    //     //     if (err) {
+    //     //         return res.status(500).end();
+    //     //     }
+    //     //     console.log("Rows updated:" + res.changedRows);
+    //     // })
+    // });
 
+//get all users
+    //Admin users and inventory logic
 
     app.get('/users', isAdmin, function(req,res){
        connection.query("SELECT * FROM users", function(err, data){
@@ -272,6 +328,16 @@ module.exports = function(app, passport) {
        })
     });
 
+    app.get('/inventory', isAdmin, function(req, res) {
+        connection.query("SELECT * FROM inventory", function(err, data) {
+            console.log(err);
+            if (err) {
+                return res.status(500).end();
+            }
+            //console.log(data);
+            res.render("inventory", { inventory : data });
+        });
+    });
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
@@ -287,7 +353,6 @@ module.exports = function(app, passport) {
 };
 
 
-
 function isAuthenticated(req,res,next){
     if(req.user)
         return next();
@@ -301,10 +366,9 @@ function isAuthenticated(req,res,next){
 //username - ZachLowe password-LowePost
 
 function isAdmin(req,res,next){
-    console.log(req.user.username);
-    if(req.user.username === "ZachLowe" || req.user.username === "nlimbach") {
+    //console.log(req.user.username);
+    if(req.user.username === "DaveFranco" || req.user.username === "nlimbach") {
         return next();
-
     }
         else {
             return res.status(401).json({
