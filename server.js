@@ -18,6 +18,7 @@ var expressReactHelper = require('express-react-helper');
 // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
+
 app.use(expressReactHelper.setup());
 
 //logs every request to console yo
