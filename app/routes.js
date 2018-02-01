@@ -124,28 +124,19 @@ module.exports = function(app, passport) {
         });
     });
 
-    var customerPurchaseData;
 // Initiate Charge stripe functionality then render survey page
     app.post('/charge', (req, res, next) => {
-        var dataArr = req.body.my_data;
-        customerPurchaseData = [];
 
-        //console.log("dataArr: ", dataArr);
-        for(let i = 0; i < dataArr.length; i++){
-            customerPurchaseData.push(dataArr[i].split(","));
-        }
-
-        //console.log("inventoryArr: ", inventoryArr);
-
-        for(let i= 0; i < customerPurchaseData.length; i++){
-            console.log("individual item data:", customerPurchaseData[i]);
-        }
 
         console.log("Stripe Data: ", req.body);
 
         const token = req.body.stripeToken;
 
         charge(token).then(data => {
+
+            var OrderData = req.body.my_data;
+
+        //nodemailer
 
             console.log("email: " + req.body.stripeEmail);
             var sendEmail = req.body.stripeEmail;
@@ -160,7 +151,7 @@ module.exports = function(app, passport) {
             var mailOptions = {
                 from: 'screenprinterbootcamp@gmail.com',
                 to: sendEmail,
-                subject: 'ScreenPrinter Confirmation',
+                subject: "Order Confirmation - Chuck's Tees",
                 text: 'testing email'
             };
             transporter.sendMail(mailOptions, function (error, info) {
@@ -171,37 +162,10 @@ module.exports = function(app, passport) {
                 }
             });
 
-        //nodemailer
-
-            // console.log("email: " + req.body.stripeEmail);
-            // var sendEmail = req.body.stripeEmail;
-            //
-            // var transporter = nodemailer.createTransport({
-            //     service: 'gmail',
-            //     auth: {
-            //         user: 'screenprinterbootcamp@gmail.com',
-            //         pass: 'W0rkday!'
-            //     }
-            // });
-            // var mailOptions = {
-            //     from: 'screenprinterbootcamp@gmail.com',
-            //     to: sendEmail,
-            //     subject: "Order Confirmation - Chuck's Tees",
-            //     text: 'testing email'
-            // };
-            // transporter.sendMail(mailOptions, function (error, info) {
-            //     if (error) {
-            //         console.log(error);
-            //     } else {
-            //         console.log('Email sent: ' + info.response);
-            //     }
-            // });
-
 
             // Update Inventory table here here
 
 
-            var OrderData = req.body.my_data;
             console.log("orderdata array length:" + OrderData.length)
 
 
@@ -212,9 +176,9 @@ module.exports = function(app, passport) {
                      var item = OrderData[i].split(',');
                      //
                      var id = item[0];
-                     var size = item[1];
-                     var type = item[2];
-                     var color = item[3];
+                     var size = item[1].trim();
+                     var type = item[2].trim();
+                     var color = item[3].trim();
                      var quantityOrder = parseInt(item[4]);
                      var price = item[5];
                      var notes = item[6];
@@ -225,7 +189,7 @@ module.exports = function(app, passport) {
 
             //Update Inventory here
 
-                     connection.query("UPDATE inventory SET quantity = quantity - ? WHERE color = ? AND size = ? AND type_of_shirt = ?",[quantityOrder, color, size, type], function(err, data) {
+                     connection.query("UPDATE inventory SET quantity = quantity - ? WHERE color = ? AND size = ? AND type_of_shirt = ?",[ parseInt(quantityOrder), color, size, type], function(err, data) {
 
 
                           if (err) {
