@@ -1,3 +1,16 @@
+// module.exports = {
+//     'connection': {
+//         'host': 'localhost',
+//         'user': 'root',
+//         'password': ''
+//     },
+//     'database': 'screen_printer',
+//     'users_table': 'users',
+//     'orders_table': 'finalprojectorders',
+//     'inventory_table': 'inventory',
+//
+// };
+
 var mysql = require('mysql');
 var connection;
 
@@ -8,10 +21,10 @@ if(process.env.JAWSDB_URL){
         'host': 'localhost',
         'user': 'root',
         'password': '',
-        'database': 'screen_printer',
-        'users_table': 'users',
-        'orders_table': 'finalprojectorders',
-        'inventory_table': 'inventory'
+        'database': 'screen_printer'
+        // 'users_table': 'users',
+        // 'orders_table': 'finalprojectorders',
+        // 'inventory_table': 'inventory'
     })
 }
 
