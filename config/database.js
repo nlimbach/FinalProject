@@ -10,7 +10,8 @@
 //     'inventory_table': 'inventory',
 //
 // };
-
+//--------------------------------
+//--------------------------------
 var mysql = require('mysql');
 var connection;
 
@@ -30,4 +31,3 @@ if(process.env.JAWSDB_URL){
 
 connection.connect();
 module.exports = connection;
-

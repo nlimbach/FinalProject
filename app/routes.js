@@ -28,9 +28,8 @@ module.exports = function(app, passport) {
         res.render('forgotPW');
     });
 
-    app.get('/analytics', function(req, res){
+    app.get('/analytics', isAdmin, function(req, res){
         res.render('analytics.jsx', {
-            orders: req.orders,
             user : req.user // get the user out of session and pass to template
         });
     });
@@ -152,7 +151,7 @@ module.exports = function(app, passport) {
                 from: 'screenprinterbootcamp@gmail.com',
                 to: sendEmail,
                 subject: "Order Confirmation - Chuck's Tees",
-                text: 'testing email'
+                text: 'Thank you for your order. We will send a confirmation email to you when your order has shipped'
             };
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -167,9 +166,6 @@ module.exports = function(app, passport) {
 
 
             console.log("orderdata array length:" + OrderData.length)
-
-
-
                  for (var i = 0; i < OrderData.length; i++) {
 
 
@@ -234,7 +230,7 @@ module.exports = function(app, passport) {
 
     });
 
-    app.get('/charge', isAdmin, function(req, res){
+    app.get('/charge', isAuthenticated, function(req, res){
        console.log("charge route data: ", customerPurchaseData);
     });
 
@@ -261,24 +257,6 @@ module.exports = function(app, passport) {
        })
     });
 
-    // app.post('/inventory', isAdmin, function(req, res){
-    //     var inventoryDataToUpdate = req.body;
-    //     var quantityToUpdate;
-    //     console.log(inventoryDataToUpdate);
-    //     for(let i = 0; i < inventoryDataToUpdate.length; i++ ){
-    //         //console.log(inventoryDataToUpdate[i]);
-    //         for(let j = 0; j < inventoryDataToUpdate[i][j]; j++){
-    //             //console.log(inventoryDataToUpdate[i][j][0]);
-    //         }
-    //
-    //     }
-    //     // connection.query("UPDATE inventory SET quantity = ? WHERE type_of_shirt = ? & size = ? & material = ? & quantity = ?", [quantityToUpdate], function(err, data){
-    //     //     if (err) {
-    //     //         return res.status(500).end();
-    //     //     }
-    //     //     console.log("Rows updated:" + res.changedRows);
-    //     // })
-    // });
 
 //get all users
     //Admin users and inventory logic
@@ -314,6 +292,7 @@ module.exports = function(app, passport) {
             user: req.user
         });
     });
+
 };
 
 

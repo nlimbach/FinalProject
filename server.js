@@ -13,7 +13,6 @@ var consolidate = require("consolidate");
 var react_template = require("express-react-views").createEngine();
 var expressReactHelper = require('express-react-helper');
 
-
 // configuration ===============================================================
 // connect to our database
 

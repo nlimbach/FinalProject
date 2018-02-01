@@ -8,6 +8,7 @@ var dbconfig = require('./database');
 
 //creating database connection
 var connection = mysql.createConnection(dbconfig.connection);
+
 connection.query('USE ' + dbconfig.database);
 
 // expose this function to our app using module.exports

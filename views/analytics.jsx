@@ -32,9 +32,7 @@ class Chart extends React.Component{
                     </ul>
                 </nav>
                 <div className="card z-depth-4" id="aboutCard">
-                    <p>
-                        {this.props.user.username}
-                        {this.props.orders}
+                    <p>Hello {this.props.user.username}, please visit <a href="https://dashboard.stripe.com/test/payments">Stripe</a> for information regarding customer purchases.
                     </p>
                 </div>
 
