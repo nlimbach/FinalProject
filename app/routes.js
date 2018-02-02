@@ -22,6 +22,17 @@ connection.connect(function (err) {
 });
 
 
+var dbconfig = require('../config/database');
+const charge = require('../config/charge');
+const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
+
+var connection = mysql.createConnection(dbconfig.connection, function(err){
+    if(err)throw err;
+});
+
+
+connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
 
@@ -319,6 +330,7 @@ function isAuthenticated(req,res,next){
 }
 //for testing
 //username - DaveFranco password-1
+//username - ZachLowe password-LowePost
 
 function isAdmin(req,res,next){
     //console.log(req.user.username);

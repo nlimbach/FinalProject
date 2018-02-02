@@ -70,3 +70,5 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 app.listen(port, () => {
     console.log('Checkout the action on port: ' + port);
 });
+// app.listen(port);
+// console.log('Checkout the action on port: ' + port);
