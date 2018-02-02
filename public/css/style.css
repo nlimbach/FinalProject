@@ -1,0 +1,331 @@
+body {
+    font-family: 'Inconsolata', monospace;
+}
+.test {
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.links{
+    display:inline-block;
+    color:red;
+}
+
+#registerForm, #forgotPWForm{
+    margin-top: 5%;
+}
+
+.submit{
+    margin-bottom:10px;
+}
+
+
+.fixed-action-btn.horizontal ul{
+    top: 10%;
+    right: 0px;
+    text-align: center;
+    left: 0px;
+}
+
+.fixed-action-btn {
+    position: relative;
+    bottom: 0px;
+}
+
+.btn-floating{
+    background-color: #0d47a1;
+}
+
+.btn-floating:hover{
+    background-color: red;
+}
+
+
+
+.colorBox {
+    /*align-items: center;*/
+    /*align-content: center;*/
+    display:inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+
+
+.colorBox:hover{
+
+    width: 25px;
+    height: 25px;
+}
+.colorImage, .placeholderColorImage{
+    width: 270px;
+    height: 320px;
+    margin: 45px;
+}
+
+p{
+    text-align: center;
+}
+
+#quantity{
+    width:20%;
+}
+
+.login-image{
+    background-image: url("https://i.pinimg.com/originals/75/c6/1b/75c61bc2227f121a4e39f3b753a1446c.jpg");
+    background-repeat: repeat-y;
+    height: 100vh;
+    background-size: cover;
+
+}
+
+.valign-wrapper .form-group{
+    float: none;
+}
+
+#loginButtonRow{
+    margin-bottom:0px;
+}
+
+#logoutButton {
+    color: white;
+}
+
+p.center-align{
+    padding-bottom: 10px;
+}
+
+#noAccount{
+    padding-top:10px;
+}
+
+
+#loginButtonRow{
+    margin-bottom:0px;
+}
+
+#addPrice{
+    color:red;
+    font-size: x-large;
+    text-shadow: 1px 1px 0px white;
+
+}
+
+#placeOrder{
+    text-shadow: 1px 1px 0px white;
+    width:auto;
+}
+
+.checkCircle{
+    margin-top:35px;
+}
+
+#plusMinus{
+    padding:0px;
+}
+
+#placeOrderContainer{
+    background-color: rgba(255,255,255, 0.9);
+    border-radius:15px;
+}
+
+#profileCard{
+    text-shadow: 1px 1px 0px white;
+    width:auto;
+}
+
+#profileContainer{
+    background-color: rgba(255,255,255, 0.9);
+    margin: 20px auto;
+    overflow: scroll;
+}
+
+#aboutCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+
+
+#orderCard{
+    text-shadow: 1px 1px 0px white;
+    width:auto;
+}
+
+#orderHistoryCard{
+    text-shadow: 1px 1px 0px white;
+    width:auto;
+}
+
+.shopping-cart {
+    margin-right: 5px;
+}
+
+.adminBtn{
+    background-color: red;
+}
+
+.border{
+    position:relative;
+}
+
+.border:hover::after{
+    content:'';
+    position:absolute;
+    width: 100%;
+    height: 0;
+    left:0;
+    bottom:0px; /*Change this to increase/decrease distance*/
+    border-bottom: 2px solid white;
+}
+
+.brandLogo{
+    margin-top: 14px;
+    margin-left: 10px;
+}
+
+.brandLogo:hover{
+    background-color: red;
+}
+
+nav{
+    background-color: black;
+}
+
+#analyticsNav{
+    background-color: black;
+
+}
+
+
+nav ul li a {
+    text-decoration: none;
+}
+
+#signUpCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+
+.form-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 15%;
+    padding-left: 15%;
+}
+
+.form-group :focus {
+    border-bottom: 1px solid red !important;
+}
+
+#signupSubmit{
+    margin-bottom:10px;
+    background-color:red;
+    color: white;
+}
+
+.signUpButton{
+    margin-bottom:10px;
+}
+
+#loginCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+
+.loginButton{
+    margin-bottom:10px;
+}
+
+.adminCard{
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    left:25%;
+    right: 25%;
+    margin-top:20px;
+}
+
+.adminBtn{
+    margin-bottom:10px;
+}
+
+#inventoryContainer{
+    padding-top:20px;
+}
+
+#inventoryTable{
+    width: 75%;
+    height:75%;
+    background-color: rgba(255,255,255, 0.9);
+    margin: auto;
+    position: absolute;
+    overflow-x:scroll;
+    overflow-y:scroll;
+}
+
+#inventorySubmit{
+    color: white;
+}
+
+#userSubmit{
+    color:white;
+}
+
+#analyticsSubmit{
+    color: white;
+}
+
+#adminButtons{
+    margin-bottom: 20px;
+}
+
+#userCard{
+    margin-top:20px;
+}
+
+
+
+tbody {
+    display:block;
+    height:100%;
+    overflow:auto;
+}
+
+thead, tbody tr {
+    display:table;
+    width:90%;
+    table-layout:fixed;
+}
+
+
+tbody{
+    height: calc( 100% - 4em )
+}
+
+
+.collapsible-header {
+    text-align: center;
+}
+
+button.stripe-button-el>span {
+    background-color: red !important;
+    background-image: none;
+}
+.stripe-button-el  {
+    margin-left:48%;
+}

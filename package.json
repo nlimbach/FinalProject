@@ -1,0 +1,41 @@
+{
+  "name": "screen-printer-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "consolidate": "^0.15.0",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-react-helper": "^1.0.2",
+    "express-react-views": "^0.10.5",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0",
+    "node-mailer": "^0.1.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "react": "^16.2.0",
+    "react-chartist": "^0.13.1",
+    "react-dom": "^16.2.0",
+    "sequelize": "^4.32.2",
+    "stripe": "^5.4.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "v6.2.0"
+  }
+}

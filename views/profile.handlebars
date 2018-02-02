@@ -1,0 +1,46 @@
+<nav>
+    <ul>
+        <li class="btn red brandLogo border"><a href="/about">Chuck's Tees</a></li>
+        <li class="border"><a href="/">Home</a></li>
+        <li class="border"><a href="/profile">Profile</a></li>
+        <li class="border"><a href="/placeorder">Shop</a></li>
+        <li class="border"><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="login-image z-depth-5">
+    <div class="row valign-wrapper">
+        <div class="col l6 m8 s12 z-depth-4" id="profileContainer">
+        <div class=“card”>
+            <div class="center">
+                <h3 class="center" id="orderCard">Profile</h3>
+                <strong>Username</strong>: {{user.username }}<br>
+                <strong>First Name</strong>: {{ user.user_first_name }}<br>
+                <strong>Last Name</strong>: {{ user.user_last_name }}<br>
+                <strong>Phone Number</strong>: {{ user.user_number }}<br>
+                <strong>Email</strong>: {{ user.user_email }}<br>
+            </div>
+            <div class="center">
+                <h3 class =“center” id="orderHistoryCard">Order History</h3>
+            </div>
+        </div>
+            {{#each orders}}
+
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">View Order</div>
+                        <div class="collapsible-body">
+                            <p>Type: {{this.shirt_type}}</p>
+                            <p>Item Size: {{this.size}}</p>
+                            <p>Color: {{this.color}}</p>
+                            <p>Quantity: {{this.quantity}}</p>
+                            <p>Price: {{this.price}}</p>
+                            <p>Status: {{this.status}}</p>
+                        </div>
+                    </li>
+                </ul>
+            {{/each}}
+        </div>
+    </div>
+</div>
+

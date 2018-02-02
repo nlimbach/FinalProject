@@ -1,0 +1,45 @@
+<nav>
+    <ul>
+        <li class="btn red brandLogo border"><a href="/about">Chuck's Tees</a></li>
+        <li class="border"><a href="/adminLanding">Admin Home</a></li>
+        <li class="border"><a href="/inventory">Inventory</a></li>
+        <li class="border"><a href="/users">Users</a></li>
+        <li class="border"><a href="/logout">Logout</a></li>
+
+    </ul>
+</nav>
+
+<div class="login-image z-depth-5">
+    <div class="container z-depth-4" id="inventoryContainer">
+                <table class="highlight centered" id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>Type of Shirt</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Material</th>
+                            <th>Quantity</th>
+                            <th>Cost</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{#each inventory}}
+                        <tr>
+                            <td>{{this.type_of_shirt }}</td>
+                            <td>{{this.size}}</td>
+                            <td>{{this.color }}</td>
+                            <td>{{this.material }}</td>
+                            <td>{{this.quantity }}</td>
+                            <td>{{this.cost }}</td>
+                            <td>{{this.price }}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+    </div>
+</div>
+
+
+
+

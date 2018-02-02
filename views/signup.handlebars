@@ -1,0 +1,95 @@
+<nav>
+    <ul>
+            <li class="btn red brandLogo border"><a href="/about">Chuck's Tees</a></li>
+            <li class="border"><a href="/" class="navAbout">Home</a></li>
+            <li class="border"><a href="/login" class="navLogin">Login</a></li>
+            <li class="border"><a href="/signup" class="navSignup">Sign Up</a></li>
+    </ul>
+</nav>
+<div class="login-image">
+<div class="card center-align z-depth-4" id="signUpCard">
+    <h4 class="center-align black-text card-title">Sign Up</h4>
+    <form action="/signup" method="post">
+        <div class="form-group" id="firstName">
+            <input class="form-control validate" id="fName-input" name="user_first_name" type="text"
+                   placeholder="First Name" required/>
+        </div>
+
+        <div class="form-group" id="lastName">
+            <input class="form-control validate" id="lName-input" name="user_last_name" type="text"
+                   placeholder="Last Name" required/>
+        </div>
+
+        <div class="form-group" id="number">
+            <input class="form-control validate" id="number-input" name="user_number" type="number"
+                   placeholder="Phone Number" />
+        </div>
+
+        <div class="form-group" id="email">
+            <input class="form-control validate" id="email-input" name="user_email" type="email"
+                   placeholder="Email" required/>
+        </div>
+
+        <div class="form-group" id="username">
+            <input type="text" class="form-control" id="usernameinput" name="username"
+                   placeholder="Username" required/>
+                {{#if message}}
+            <div class="alert alert-danger">{{message}}</div>
+                {{/if}}
+        </div>
+
+        <div class="form-group" id="password">
+            <input type="password" class="form-control" id="passwordinput" name="password"
+                   placeholder="Password" required/>
+        </div>
+        <input type="submit" class="btn waves-effect waves-light red signupSubmit" id="submit" value="Signup"/>
+
+    </form>
+</div>
+</div>
+<!--<div class="login-image z-depth-5">-->
+        <!--<div class="row valign-wrapper">-->
+            <!--<div class="card center-align z-depth-4 col l6 m8 s12" id="signupCard">-->
+                <!--<h4 class="center-align black-text">Sign Up</h4>-->
+                    <!--<form action="/signup" method="post">-->
+                        <!--<div class="form-group" id="firstName">-->
+                            <!--<label for="fName-input">First Name </label>-->
+                            <!--<input class="form-control" id="fName-input" name="user_first_name" class = "validate" type="text" required>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group" id="lastName">-->
+                            <!--<label>Last Name </label>-->
+                            <!--<input class="form-control" id="lName-input" name="user_last_name" class = "validate" type="text" required>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group" id="number">-->
+                            <!--<label>Number </label>-->
+                            <!--<input class="form-control" id="number-input" class = "validate" name="user_number" type="number">-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group" id="email">-->
+                            <!--<label>Email </label>-->
+                            <!--<input class="form-control" id="email-input" class = "validate" name="user_email" type="email" required>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group" id="username">-->
+                            <!--<label>Username</label>-->
+                            <!--<input type="text" class="form-control" id="usernameinput" name="username" required>-->
+
+                        <!--</div>-->
+
+                        <!--<div class="form-group" id="password">-->
+                            <!--<label>Password</label>-->
+                            <!--<input type="password" class="form-control" id="passwordinput" name="password" required>-->
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+                        <!--</div>-->
+
+            <!--<button type="submit" class="btn waves-effect waves-light red" id="signupSubmit">Signup</button>-->
+
+            <!--<div class="form-group black-text" id="noAccount">-->
+                <!--<strong>Don't have an account? Sign up </strong><a class="links" id="registerAccount" href="/signup"> here</a>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
