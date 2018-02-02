@@ -40,20 +40,20 @@ app.engine("jsx", react_template, consolidate.jsx);
 app.set('view engine', 'handlebars'); // set up hbs for templating
 
 
-app.use(require('cookie-session')({
-    name: 'session',
-    keys: ['great'],
+// app.use(require('cookie-session')({
+//     name: 'session',
+//     keys: ['great'],
+//
+//     // Cookie Options
+//     maxAge: 24 * 60 * 60 * 1000 // 24 hours
+// }));
 
-    // Cookie Options
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}));
-
-// // required for passport
-// app.use(session({
-//     secret: 'secret',
-//     resave: true,
-//     saveUninitialized: true
-// } )); // session secret
+// required for passport
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+} )); // session secret
 
 //initializing passport session
 app.use(passport.initialize());

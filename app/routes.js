@@ -15,14 +15,13 @@ if(process.env.JAWSDB_URL){
 
 connection.connect(function (err) {
     if(err){
-        console.log("MySQL Errro");
+        console.log("MySQL Error");
     } else{
         console.log("Everything works fine!");
     }
 });
 
 
-// connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
 

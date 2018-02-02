@@ -3,7 +3,8 @@ module.exports = {
         'host': 'localhost',
         'user': 'root',
         'password': '',
-        'port':'3306'
+        'port':'3306',
+        'database':'screen_printer'
     },
     'database': 'screen_printer',
     'users_table': 'users',
