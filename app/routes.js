@@ -6,11 +6,10 @@ const nodemailer = require('nodemailer');
 //
 var connection;
 
-
 if(process.env.JAWSDB_URL){
     connection = mysql.createConnection(process.env.JAWSDB_URL)
 } else{
-    connection = mysql.createConnection(dbconfig.connection);
+    connection = mysql.createConnection(dbconfig.config);
 }
 
 connection.connect(function (err) {
@@ -22,14 +21,9 @@ connection.connect(function (err) {
 });
 
 
-var dbconfig = require('../config/database');
-const charge = require('../config/charge');
-const dotenv = require('dotenv');
-const nodemailer = require('nodemailer');
-
-var connection = mysql.createConnection(dbconfig.connection, function(err){
-    if(err)throw err;
-});
+// var connection = mysql.createConnection(dbconfig.connection, function(err){
+//     if(err)throw err;
+// });
 
 
 connection.query('USE ' + dbconfig.database);

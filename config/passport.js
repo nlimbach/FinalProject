@@ -12,7 +12,9 @@ var connection;
 if(process.env.JAWSDB_URL){
     connection = mysql.createConnection(process.env.JAWSDB_URL)
 } else{
-    connection = mysql.createConnection(dbconfig.connection);
+    // console.log("config 1", dbconfig.config);
+    // console.log("db config connect", dbconfig.config);
+    connection = mysql.createConnection(dbconfig.config);
 }
 
 connection.connect(function (err) {
@@ -26,7 +28,7 @@ connection.connect(function (err) {
 
 // var connection = mysql.createConnection(dbconfig.connection);
 //
-// connection.query('USE ' + dbconfig.database);
+connection.query('USE ' + dbconfig.database);
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {

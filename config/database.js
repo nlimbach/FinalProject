@@ -14,8 +14,8 @@
 // };
 //--------------------------------
 //--------------------------------
-var mysql = require('mysql');
-var connection;
+let mysql = require('mysql');
+let connection;
 
 if(process.env.JAWSDB_URL){
     connection = mysql.createConnection(process.env.JAWSDB_URL)
@@ -23,11 +23,23 @@ if(process.env.JAWSDB_URL){
     connection = mysql.createConnection({
         'host': 'localhost',
         'user': 'root',
-        'password': ''
+        'password': '',
+        'database': 'screen_printer',
+        'port':'3000',
+        'users_table': 'users',
+        'orders_table': 'finalprojectorders',
+        'inventory_table': 'inventory'
     });
 }
 
-connection.connect();
+// connection.connect();
+connection.connect(function(err) {
+    if(err){
+        console.log("MySQL Error");
+    } else{
+        console.log("Everything works fine!");
+    }
+});
 
 module.exports = connection;
 
@@ -64,3 +76,5 @@ module.exports = connection;
 //
 // connection.connect();
 // module.exports = connection;
+
+
