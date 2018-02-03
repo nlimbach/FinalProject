@@ -31,7 +31,6 @@
     "react": "^16.2.0",
     "react-chartist": "^0.13.1",
     "react-dom": "^16.2.0",
-    "sequelize": "^4.32.2",
     "stripe": "^5.4.0"
   },
   "devDependencies": {},

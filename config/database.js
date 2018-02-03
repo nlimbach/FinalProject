@@ -1,47 +1,49 @@
-// module.exports = {
-//     'connection': {
-//         'host': 'localhost',
-//         'user': 'root',
-//         'password': '',
-//         'port':'3306',
-//         'database':'screen_printer'
-//     },
-//     'database': 'screen_printer',
-//     'users_table': 'users',
-//     'orders_table': 'finalprojectorders',
-//     'inventory_table': 'inventory',
-//
-// };
-//--------------------------------
-//--------------------------------
-let mysql = require('mysql');
-let connection;
-
-if(process.env.JAWSDB_URL){
-    connection = mysql.createConnection(process.env.JAWSDB_URL)
-} else{
-    connection = mysql.createConnection({
+module.exports = {
+    'connection': {
         'host': 'localhost',
         'user': 'root',
         'password': '',
-        'database': 'screen_printer',
-        'port':'3000',
-        'users_table': 'users',
-        'orders_table': 'finalprojectorders',
-        'inventory_table': 'inventory'
-    });
-}
+        'port':'3306',
+        'database':'screen_printer'
+    },
+    'database': 'screen_printer',
+    'users_table': 'users',
+    'orders_table': 'finalprojectorders',
+    'inventory_table': 'inventory',
 
-// connection.connect();
-connection.connect(function(err) {
-    if(err){
-        console.log("MySQL Error");
-    } else{
-        console.log("Everything works fine!");
-    }
-});
-
-module.exports = connection;
+};
+//--------------------------------
+//--------------------------------
+// let mysql = require('mysql');
+// let connection;
+//
+// if(process.env.JAWSDB_URL){
+//     connection = mysql.createConnection(process.env.JAWSDB_URL)
+// } else{
+//     connection = mysql.createConnection({
+//         host: '127.0.0.1',
+//         // localAddress: '127.0.0.1',
+//         user: 'root',
+//         database: 'screen_printer',
+//         port: 3306,
+//         // socketPath: '/tmp/mysql.sock'
+//         // 'users_table': 'users',
+//         // 'orders_table': 'finalprojectorders',
+//         // 'inventory_table': 'inventory'
+//     });
+// }
+//
+// // connection.connect();
+// // connection.connect(function(err) {
+// //     if(err){
+// //         console.log(err);
+// //         console.log("MySQL Error");
+// //     } else{
+// //         console.log("Everything works fine!");
+// //     }
+// // });
+//
+// module.exports = connection;
 
 // module.exports = {
 //     'connection': {

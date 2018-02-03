@@ -6,10 +6,11 @@ const nodemailer = require('nodemailer');
 //
 var connection;
 
+
 if(process.env.JAWSDB_URL){
     connection = mysql.createConnection(process.env.JAWSDB_URL)
 } else{
-    connection = mysql.createConnection(dbconfig.config);
+    connection = mysql.createConnection(dbconfig.connection);
 }
 
 connection.connect(function (err) {
@@ -20,13 +21,6 @@ connection.connect(function (err) {
     }
 });
 
-
-// var connection = mysql.createConnection(dbconfig.connection, function(err){
-//     if(err)throw err;
-// });
-
-
-connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
 

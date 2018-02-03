@@ -6,15 +6,10 @@ var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 var dbconfig = require('./database');
 
-//creating database connection
-var connection;
-
 if(process.env.JAWSDB_URL){
     connection = mysql.createConnection(process.env.JAWSDB_URL)
 } else{
-    // console.log("config 1", dbconfig.config);
-    // console.log("db config connect", dbconfig.config);
-    connection = mysql.createConnection(dbconfig.config);
+    connection = mysql.createConnection(dbconfig.connection);
 }
 
 connection.connect(function (err) {
@@ -24,11 +19,6 @@ connection.connect(function (err) {
         console.log("Everything works fine!");
     }
 });
-
-
-// var connection = mysql.createConnection(dbconfig.connection);
-//
-connection.query('USE ' + dbconfig.database);
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
