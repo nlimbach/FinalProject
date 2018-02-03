@@ -6,9 +6,19 @@ var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 var dbconfig = require('./database');
 
-//creating database connection
-var connection = mysql.createConnection(dbconfig.connection);
-connection.query('USE ' + dbconfig.database);
+if(process.env.JAWSDB_URL){
+    connection = mysql.createConnection(process.env.JAWSDB_URL)
+} else{
+    connection = mysql.createConnection(dbconfig.connection);
+}
+
+connection.connect(function (err) {
+    if(err){
+        console.log("MySQL Error");
+    } else{
+        console.log("Everything works fine!");
+    }
+});
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {

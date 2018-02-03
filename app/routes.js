@@ -1,15 +1,26 @@
 var mysql = require('mysql');
-var dbconfig = require('../config/database');
+let dbconfig = require('../config/database');
 const charge = require('../config/charge');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
+//
+var connection;
 
-var connection = mysql.createConnection(dbconfig.connection, function(err){
-    if(err)throw err;
+
+if(process.env.JAWSDB_URL){
+    connection = mysql.createConnection(process.env.JAWSDB_URL)
+} else{
+    connection = mysql.createConnection(dbconfig.connection);
+}
+
+connection.connect(function (err) {
+    if(err){
+        console.log("MySQL Error");
+    } else{
+        console.log("Everything works fine!");
+    }
 });
 
-
-connection.query('USE ' + dbconfig.database);
 
 module.exports = function(app, passport) {
 
@@ -28,9 +39,8 @@ module.exports = function(app, passport) {
         res.render('forgotPW');
     });
 
-    app.get('/analytics', function(req, res){
+    app.get('/analytics', isAdmin, function(req, res){
         res.render('analytics.jsx', {
-            orders: req.orders,
             user : req.user // get the user out of session and pass to template
         });
     });
@@ -136,15 +146,13 @@ module.exports = function(app, passport) {
 
 
 
-        //nodemailer
 
 
             // Update Inventory table here here
             var OrderData = req.body.my_data;
-            console.log("is order an array" + OrderData.constructor === Array)
-            console.log("orderdata array length:" + OrderData.length)
 
-            var item = OrderData[i].split(',');
+
+
             var confirmationNumber = '0';
 
                  for (var i = 0; i < OrderData.length; i++) {
@@ -241,7 +249,7 @@ module.exports = function(app, passport) {
 
     });
 
-    app.get('/charge', isAdmin, function(req, res){
+    app.get('/charge', isAuthenticated, function(req, res){
        console.log("charge route data: ", customerPurchaseData);
     });
 
@@ -268,24 +276,6 @@ module.exports = function(app, passport) {
        })
     });
 
-    // app.post('/inventory', isAdmin, function(req, res){
-    //     var inventoryDataToUpdate = req.body;
-    //     var quantityToUpdate;
-    //     console.log(inventoryDataToUpdate);
-    //     for(let i = 0; i < inventoryDataToUpdate.length; i++ ){
-    //         //console.log(inventoryDataToUpdate[i]);
-    //         for(let j = 0; j < inventoryDataToUpdate[i][j]; j++){
-    //             //console.log(inventoryDataToUpdate[i][j][0]);
-    //         }
-    //
-    //     }
-    //     // connection.query("UPDATE inventory SET quantity = ? WHERE type_of_shirt = ? & size = ? & material = ? & quantity = ?", [quantityToUpdate], function(err, data){
-    //     //     if (err) {
-    //     //         return res.status(500).end();
-    //     //     }
-    //     //     console.log("Rows updated:" + res.changedRows);
-    //     // })
-    // });
 
 //get all users
     //Admin users and inventory logic
@@ -321,6 +311,7 @@ module.exports = function(app, passport) {
             user: req.user
         });
     });
+
 };
 
 
@@ -334,6 +325,7 @@ function isAuthenticated(req,res,next){
 
 }
 //for testing
+//username - DaveFranco password-1
 //username - ZachLowe password-LowePost
 
 function isAdmin(req,res,next){

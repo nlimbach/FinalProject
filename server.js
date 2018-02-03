@@ -13,11 +13,11 @@ var consolidate = require("consolidate");
 var react_template = require("express-react-views").createEngine();
 var expressReactHelper = require('express-react-helper');
 
-
 // configuration ===============================================================
 // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
+
 app.use(expressReactHelper.setup());
 
 //logs every request to console yo
@@ -39,6 +39,15 @@ app.engine("jsx", react_template, consolidate.jsx);
 
 app.set('view engine', 'handlebars'); // set up hbs for templating
 
+
+// app.use(require('cookie-session')({
+//     name: 'session',
+//     keys: ['great'],
+//
+//     // Cookie Options
+//     maxAge: 24 * 60 * 60 * 1000 // 24 hours
+// }));
+
 // required for passport
 app.use(session({
     secret: 'secret',
@@ -53,10 +62,12 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 //remote db connection
 
-
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-app.listen(port);
-console.log('Checkout the action on port: ' + port);
+app.listen(port, () => {
+    console.log('Checkout the action on port: ' + port);
+});
+// app.listen(port);
+// console.log('Checkout the action on port: ' + port);
