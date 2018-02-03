@@ -134,46 +134,24 @@ module.exports = function(app, passport) {
 
         charge(token).then(data => {
 
-            var OrderData = req.body.my_data;
+
 
         //nodemailer
 
-            console.log("email: " + req.body.stripeEmail);
-            var sendEmail = req.body.stripeEmail;
-
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'screenprinterbootcamp@gmail.com',
-                    pass: 'W0rkday!'
-                }
-            });
-            var mailOptions = {
-                from: 'screenprinterbootcamp@gmail.com',
-                to: sendEmail,
-                subject: "Order Confirmation - Chuck's Tees",
-                text: 'testing email'
-            };
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
-
 
             // Update Inventory table here here
-
-
+            var OrderData = req.body.my_data;
+            console.log("is order an array" + OrderData.constructor === Array)
             console.log("orderdata array length:" + OrderData.length)
 
-
+            var item = OrderData[i].split(',');
+            var confirmationNumber = '0';
 
                  for (var i = 0; i < OrderData.length; i++) {
 
-
                      var item = OrderData[i].split(',');
+
+
                      //
                      var id = item[0];
                      var size = item[1].trim();
@@ -183,6 +161,9 @@ module.exports = function(app, passport) {
                      var price = item[5];
                      var notes = item[6];
                      //
+
+                     confirmationNumber = confirmationNumber + '.' + id;
+
                          console.log(id + "," + size + ","+ type +  "," + color + "," + quantityOrder + "," + price + "," + notes)
 
 
@@ -204,6 +185,32 @@ module.exports = function(app, passport) {
 
 
             /// End update inventory here
+
+            console.log("email: " + req.body.stripeEmail);
+            var sendEmail = req.body.stripeEmail;
+
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'screenprinterbootcamp@gmail.com',
+                    pass: 'W0rkday!'
+                }
+            });
+            var mailOptions = {
+                from: 'screenprinterbootcamp@gmail.com',
+                to: sendEmail,
+                subject: "Order Confirmation - Chuck's Tees",
+                text: 'Thank you for your order. Your confirmation number is ' + confirmationNumber + '. We will be in touch as soon as we process your order to discuss your design preferences.'
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+
 
             connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
                 console.log(err);
