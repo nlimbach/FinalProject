@@ -229,7 +229,6 @@ module.exports = function(app, passport) {
                 //update inventory set quantity =
 
                 console.log("Rows updated:" + res.changedRows);
-                res.redirect('/survey');
             })
             // Update orders to purchased status so they move from card to purchased orders
                 connection.query("UPDATE finalprojectorders SET status = 'purchased' WHERE username = ? AND status = 'cart'",[req.user.username], function(err, data) {
@@ -241,7 +240,7 @@ module.exports = function(app, passport) {
 
                 })
 
-            res.render("confirmation")
+            res.render("confirmation" , { confNum : confirmationNumber, user: req.user })
 
         }).catch(error => {
             res.json({error: "it does not work", error});

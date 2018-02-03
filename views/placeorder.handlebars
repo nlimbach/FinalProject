@@ -47,8 +47,8 @@
                     {{/each}}
                     <script
                             src="https://checkout.stripe.com/checkout.js" id="testChargeButton" class="stripe-button"
-                            data-key="pk_test_Af0ZBi5J4wfeNO5YL05McQyX"
-                            data-amount="5000"
+                            data-key="pk_test_l7zHN9jYSGIq2rgUDHaJ51tH"
+                            data-amount=""
                             data-name="Chucks Tees"
                             data-description="Payment"
                             data-image="http://www.urltarget.com/images/shirt-tshirt-red-clothing.png"
@@ -317,4 +317,11 @@
                         location.reload();
                     });
         });
+        var totalPrice = 0
+
+        {{#each cartOrders}}
+            totalPrice = totalPrice + {{this.price}}
+        {{/each}}
+            $('#testChargeButton').data('amount', totalPrice*100); //getter
+
 </script>
